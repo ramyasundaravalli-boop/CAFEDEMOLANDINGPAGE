@@ -1,0 +1,2141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Maison Noir — Slow Coffee, Beautiful Moments</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   BRAND TOKENS — Edit these to rebrand the entire site
+   ============================================================ */
+:root {
+  /* Colors */
+  --cream:      #F7F1E8;
+  --cream-soft: #EFE6D6;
+  --sand:       #E4D5BC;
+  --espresso:   #1A120B;
+  --coffee:     #2E1F14;
+  --mocha:      #4A3220;
+  --copper:     #8B5E3C;
+  --sage:       #7B8471;
+  --sage-dark:  #5C6354;
+  --gold:       #B8894B;
+  --gold-soft:  #D4A96A;
+  --ink:        #1A120B;
+  --muted:      #6B5E50;
+  --line:       #D9CBB4;
+
+  /* Type */
+  --serif: 'Fraunces', Georgia, serif;
+  --sans:  'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Spacing scale — multiples of 4 */
+  --s1: 4px;   --s2: 8px;   --s3: 12px;  --s4: 16px;
+  --s6: 24px;  --s8: 32px;  --s12: 48px; --s16: 64px;
+  --s24: 96px; --s32: 128px; --s40: 160px; --s48: 192px;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--cream);
+  overflow-x: hidden;
+  font-weight: 400;
+}
+
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+/* Grain overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+.display {
+  font-family: var(--serif);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 0.95;
+}
+
+.display em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--gold);
+}
+
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--copper);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s3);
+}
+
+.eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--copper);
+}
+
+.eyebrow.center::before { display: none; }
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.container {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 var(--s6);
+}
+@media (min-width: 768px) {
+  .container { padding: 0 var(--s12); }
+}
+
+section { position: relative; }
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: var(--s6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@media (min-width: 768px) {
+  .nav { padding: var(--s6) var(--s12); }
+}
+
+.nav.scrolled {
+  background: rgba(247, 241, 232, 0.88);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  padding: var(--s4) var(--s6);
+  box-shadow: 0 1px 0 rgba(26, 18, 11, 0.06);
+}
+@media (min-width: 768px) {
+  .nav.scrolled { padding: var(--s4) var(--s12); }
+}
+
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--cream);
+  transition: color 0.4s;
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+}
+.nav.scrolled .nav-logo { color: var(--ink); }
+
+.nav-logo-mark {
+  width: 8px;
+  height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  box-shadow: 0 0 16px var(--gold);
+}
+
+.nav-links {
+  display: none;
+  gap: var(--s10, 40px);
+  list-style: none;
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .nav-links { display: flex; }
+}
+
+.nav-links a {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream);
+  opacity: 0.85;
+  transition: all 0.3s;
+  position: relative;
+  padding: var(--s2) 0;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.nav-links a:hover::after { width: 100%; }
+
+.nav.scrolled .nav-links a { color: var(--ink); }
+
+.nav-cta {
+  display: none;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: var(--s3) var(--s6);
+  border-radius: 999px;
+  background: var(--cream);
+  color: var(--ink);
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  border: 1px solid transparent;
+}
+@media (min-width: 900px) {
+  .nav-cta { display: inline-block; }
+}
+
+.nav-cta:hover {
+  background: var(--gold);
+  color: var(--ink);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -8px rgba(184, 137, 75, 0.4);
+}
+
+.nav.scrolled .nav-cta {
+  background: var(--ink);
+  color: var(--cream);
+}
+.nav.scrolled .nav-cta:hover {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+/* Mobile hamburger */
+.nav-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  width: 32px;
+  height: 32px;
+  gap: 6px;
+  z-index: 1100;
+}
+@media (min-width: 900px) { .nav-toggle { display: none; } }
+
+.nav-toggle span {
+  display: block;
+  height: 1.5px;
+  background: var(--cream);
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.nav-toggle span:nth-child(1) { width: 24px; }
+.nav-toggle span:nth-child(2) { width: 16px; }
+.nav-toggle span:nth-child(3) { width: 20px; }
+
+.nav.scrolled .nav-toggle span { background: var(--ink); }
+.nav-toggle.open span { background: var(--cream) !important; }
+.nav-toggle.open span:nth-child(1) { width: 24px; transform: translateY(7.5px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { width: 24px; transform: translateY(-7.5px) rotate(-45deg); }
+
+/* Mobile menu */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: var(--espresso);
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--s6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s;
+}
+.mobile-menu.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.mobile-menu a {
+  font-family: var(--serif);
+  font-size: 40px;
+  color: var(--cream);
+  letter-spacing: -0.02em;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.mobile-menu.open a {
+  transform: translateY(0);
+  opacity: 1;
+}
+.mobile-menu.open a:nth-child(1) { transition-delay: 0.1s; }
+.mobile-menu.open a:nth-child(2) { transition-delay: 0.15s; }
+.mobile-menu.open a:nth-child(3) { transition-delay: 0.2s; }
+.mobile-menu.open a:nth-child(4) { transition-delay: 0.25s; }
+.mobile-menu.open a:nth-child(5) { transition-delay: 0.3s; }
+.mobile-menu.open a:nth-child(6) { transition-delay: 0.35s; }
+.mobile-menu a:hover { color: var(--gold); font-style: italic; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  color: var(--cream);
+}
+
+.hero-bg {
+  position: absolute;
+  inset: -5%;
+  z-index: 0;
+  background-image: url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=2400&q=85');
+  background-size: cover;
+  background-position: center;
+  animation: heroZoom 24s ease-in-out infinite alternate;
+}
+
+@keyframes heroZoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.12); }
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(26, 18, 11, 0.45) 0%,
+    rgba(26, 18, 11, 0.15) 30%,
+    rgba(26, 18, 11, 0.55) 75%,
+    rgba(26, 18, 11, 0.92) 100%
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 0 var(--s6) var(--s16);
+}
+@media (min-width: 768px) {
+  .hero-content { padding: 0 var(--s12) var(--s24); }
+}
+
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+  margin-bottom: var(--s8);
+  display: flex;
+  align-items: center;
+  gap: var(--s4);
+  opacity: 0;
+  animation: fadeUp 1s 0.3s forwards;
+}
+.hero-eyebrow::before,
+.hero-eyebrow::after {
+  content: '';
+  width: 40px;
+  height: 1px;
+  background: var(--gold-soft);
+  opacity: 0.5;
+}
+
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(56px, 10vw, 152px);
+  font-weight: 300;
+  letter-spacing: -0.035em;
+  line-height: 0.9;
+  margin-bottom: var(--s6);
+  max-width: 14ch;
+  opacity: 0;
+  animation: fadeUp 1.2s 0.5s forwards;
+}
+
+.hero h1 em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--gold-soft);
+}
+
+.hero-tagline {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(20px, 2.5vw, 28px);
+  color: var(--cream-soft);
+  margin-bottom: var(--s6);
+  opacity: 0;
+  animation: fadeUp 1.2s 0.7s forwards;
+}
+
+.hero-desc {
+  font-size: 17px;
+  color: var(--cream-soft);
+  opacity: 0.75;
+  max-width: 440px;
+  margin-bottom: var(--s10, 40px);
+  line-height: 1.6;
+  animation: fadeUp 1.2s 0.9s forwards;
+}
+
+.hero-actions {
+  display: flex;
+  gap: var(--s3);
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 1.2s 1.1s forwards;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 18px 32px;
+  border-radius: 999px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary {
+  background: var(--gold);
+  color: var(--espresso);
+}
+.btn-primary:hover {
+  background: var(--cream);
+  color: var(--espresso);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px -8px rgba(184, 137, 75, 0.5);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--cream);
+  border-color: rgba(247, 241, 232, 0.35);
+}
+.btn-ghost:hover {
+  background: rgba(247, 241, 232, 0.08);
+  border-color: var(--cream);
+}
+
+.btn-dark {
+  background: var(--ink);
+  color: var(--cream);
+}
+.btn-dark:hover {
+  background: var(--coffee);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px -8px rgba(26, 18, 11, 0.3);
+}
+
+.btn-arrow::after {
+  content: '→';
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  font-size: 14px;
+}
+.btn-arrow:hover::after { transform: translateX(4px); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: var(--s8);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s3);
+  color: var(--cream);
+  opacity: 0;
+  animation: fadeIn 1s 1.8s forwards;
+}
+.scroll-indicator span {
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+.scroll-line {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, var(--gold-soft), transparent);
+  position: relative;
+  overflow: hidden;
+}
+.scroll-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  background: var(--cream);
+  animation: scrollDown 2.5s ease-in-out infinite;
+}
+@keyframes scrollDown {
+  0%   { transform: translateY(-12px); opacity: 0; }
+  50%  { opacity: 1; }
+  100% { transform: translateY(48px); opacity: 0; }
+}
+@keyframes fadeIn { to { opacity: 1; } }
+
+/* ============================================================
+   REVEAL ANIMATIONS
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1),
+              transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.reveal-slow {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 1.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+              transform 1.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.reveal-slow.visible { opacity: 1; transform: translateY(0); }
+
+/* ============================================================
+   INTRO SECTION
+   ============================================================ */
+.intro {
+  padding: var(--s32) 0;
+  background: var(--cream);
+}
+@media (min-width: 768px) {
+  .intro { padding: var(--s48) 0; }
+}
+
+.intro-grid {
+  display: grid;
+  gap: var(--s12);
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .intro-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s24);
+  }
+}
+
+.intro-image-wrap {
+  position: relative;
+  aspect-ratio: 4/5;
+  border-radius: 300px 300px 24px 24px;
+  overflow: hidden;
+  box-shadow: 0 40px 80px -40px rgba(26, 18, 11, 0.35);
+}
+
+.intro-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.intro-image-wrap:hover .intro-image { transform: scale(1.05); }
+
+.intro-copy {
+  max-width: 480px;
+}
+
+.intro-copy .eyebrow { margin-bottom: var(--s6); }
+
+.intro-copy h2 {
+  font-family: var(--serif);
+  font-size: clamp(40px, 5.5vw, 76px);
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: var(--s8);
+  color: var(--ink);
+}
+
+.intro-copy h2 em {
+  font-style: italic;
+  color: var(--copper);
+}
+
+.intro-copy p {
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--muted);
+  margin-bottom: var(--s6);
+}
+
+.intro-copy .btn { margin-top: var(--s4); }
+
+/* ============================================================
+   SIGNATURE MENU
+   ============================================================ */
+.menu-section {
+  padding: var(--s32) 0;
+  background: var(--cream-soft);
+}
+@media (min-width: 768px) {
+  .menu-section { padding: var(--s48) 0; }
+}
+
+.section-header {
+  display: grid;
+  gap: var(--s6);
+  margin-bottom: var(--s16);
+}
+@media (min-width: 900px) {
+  .section-header {
+    grid-template-columns: 1.3fr 1fr;
+    gap: var(--s16);
+    align-items: end;
+    margin-bottom: var(--s24);
+  }
+}
+
+.section-header h2 {
+  font-family: var(--serif);
+  font-size: clamp(44px, 7vw, 96px);
+  font-weight: 300;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+  color: var(--ink);
+}
+
+.section-header h2 em { font-style: italic; color: var(--copper); }
+
+.section-header p {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 400px;
+}
+
+.menu-grid {
+  display: grid;
+  gap: var(--s6);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+@media (min-width: 900px) {
+  .menu-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.menu-card {
+  background: var(--cream);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 40px 60px -30px rgba(26, 18, 11, 0.25);
+}
+
+.menu-card-image {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: var(--sand);
+}
+
+.menu-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.menu-card:hover .menu-card-image img { transform: scale(1.08); }
+
+.menu-card-body {
+  padding: var(--s6) var(--s6) var(--s8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  flex: 1;
+}
+
+.menu-card h3 {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.menu-card p {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--muted);
+  flex: 1;
+}
+
+.menu-card-price {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--copper);
+  letter-spacing: -0.01em;
+  margin-top: var(--s3);
+}
+
+.menu-cta {
+  text-align: center;
+  margin-top: var(--s16);
+}
+
+/* ============================================================
+   SIGNATURE DRINK FEATURE
+   ============================================================ */
+.signature {
+  padding: var(--s32) 0;
+  background: var(--espresso);
+  color: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+@media (min-width: 768px) {
+  .signature { padding: var(--s48) 0; }
+}
+
+.signature-grid {
+  display: grid;
+  gap: var(--s12);
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .signature-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s24);
+  }
+}
+
+.signature-image-wrap {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 60px 100px -40px rgba(0, 0, 0, 0.6);
+}
+
+.signature-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.signature-image-wrap:hover img { transform: scale(1.06); }
+
+.signature-copy .eyebrow { color: var(--gold); margin-bottom: var(--s6); }
+.signature-copy .eyebrow::before { background: var(--gold); }
+
+.signature-copy h2 {
+  font-family: var(--serif);
+  font-size: clamp(40px, 6vw, 88px);
+  font-weight: 300;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+  margin-bottom: var(--s6);
+}
+
+.signature-copy h2 em { font-style: italic; color: var(--gold); }
+
+.signature-copy p {
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--cream-soft);
+  opacity: 0.75;
+  margin-bottom: var(--s8);
+  max-width: 480px;
+}
+
+.signature-price {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s4);
+  padding: var(--s6) 0;
+  border-top: 1px solid rgba(247, 241, 232, 0.15);
+  border-bottom: 1px solid rgba(247, 241, 232, 0.15);
+  margin-bottom: var(--s8);
+}
+
+.signature-price .num {
+  font-family: var(--serif);
+  font-size: 56px;
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.signature-price .label {
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--cream-soft);
+  opacity: 0.6;
+}
+
+/* ============================================================
+   EXPERIENCE SECTION
+   ============================================================ */
+.experience {
+  padding: var(--s32) 0;
+  background: var(--cream);
+}
+@media (min-width: 768px) {
+  .experience { padding: var(--s48) 0; }
+}
+
+.experience-header {
+  max-width: 720px;
+  margin-bottom: var(--s16);
+}
+
+.experience-header .eyebrow { margin-bottom: var(--s6); }
+
+.experience-header h2 {
+  font-family: var(--serif);
+  font-size: clamp(40px, 5.5vw, 76px);
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.experience-header h2 em { font-style: italic; color: var(--copper); }
+
+.experience-grid {
+  display: grid;
+  gap: var(--s6);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 700px) {
+  .experience-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 1000px) {
+  .experience-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.experience-card {
+  position: relative;
+  aspect-ratio: 3/4;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.experience-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.experience-card:hover img { transform: scale(1.06); }
+
+.experience-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 30%,
+    rgba(26, 18, 11, 0.2) 55%,
+    rgba(26, 18, 11, 0.85) 100%
+  );
+}
+
+.experience-card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--s8) var(--s6);
+  color: var(--cream);
+}
+
+.experience-card-eyebrow {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+  margin-bottom: var(--s3);
+}
+
+.experience-card h3 {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+/* ============================================================
+   GALLERY
+   ============================================================ */
+.gallery {
+  padding: var(--s32) 0;
+  background: var(--cream-soft);
+}
+@media (min-width: 768px) {
+  .gallery { padding: var(--s48) 0; }
+}
+
+.gallery-header {
+  text-align: center;
+  margin-bottom: var(--s16);
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gallery-header .eyebrow {
+  justify-content: center;
+  margin-bottom: var(--s6);
+}
+.gallery-header .eyebrow::before { display: none; }
+
+.gallery-header h2 {
+  font-family: var(--serif);
+  font-size: clamp(40px, 5.5vw, 76px);
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.gallery-header h2 em { font-style: italic; color: var(--copper); }
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--s4);
+  grid-auto-rows: 180px;
+}
+@media (min-width: 700px) {
+  .gallery-grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 220px;
+    gap: var(--s4);
+  }
+}
+@media (min-width: 1000px) {
+  .gallery-grid { grid-auto-rows: 260px; }
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.gallery-item:hover img { transform: scale(1.08); }
+
+.gallery-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 18, 11, 0);
+  transition: background 0.6s;
+  pointer-events: none;
+}
+.gallery-item:hover::after { background: rgba(26, 18, 11, 0.4); }
+
+.gallery-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--s6);
+  color: var(--cream);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 18px;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 2;
+}
+.gallery-item:hover .gallery-caption {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Grid spans */
+.gallery-item.tall { grid-row: span 2; }
+.gallery-item.wide { grid-column: span 2; }
+@media (min-width: 700px) {
+  .gallery-item.big {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+}
+
+/* ============================================================
+   REVIEWS
+   ============================================================ */
+.reviews {
+  padding: var(--s32) 0;
+  background: var(--cream);
+}
+@media (min-width: 768px) {
+  .reviews { padding: var(--s48) 0; }
+}
+
+.reviews-header {
+  text-align: center;
+  margin-bottom: var(--s16);
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.reviews-header .eyebrow {
+  justify-content: center;
+  margin-bottom: var(--s6);
+}
+.reviews-header .eyebrow::before { display: none; }
+
+.reviews-header h2 {
+  font-family: var(--serif);
+  font-size: clamp(40px, 5.5vw, 76px);
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.reviews-header h2 em { font-style: italic; color: var(--copper); }
+
+.reviews-grid {
+  display: grid;
+  gap: var(--s6);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 800px) {
+  .reviews-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.review-card {
+  background: var(--cream-soft);
+  padding: var(--s12) var(--s8);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+}
+
+.review-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 60px -30px rgba(26, 18, 11, 0.2);
+}
+
+.review-stars {
+  color: var(--gold);
+  font-size: 14px;
+  letter-spacing: 0.2em;
+}
+
+.review-text {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--ink);
+  flex: 1;
+  letter-spacing: -0.01em;
+}
+
+.review-author {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: var(--s4);
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+}
+
+.review-author::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--copper);
+}
+
+/* ============================================================
+   LOCATION
+   ============================================================ */
+.location {
+  padding: var(--s32) 0;
+  background: var(--espresso);
+  color: var(--cream);
+}
+@media (min-width: 768px) {
+  .location { padding: var(--s48) 0; }
+}
+
+.location-grid {
+  display: grid;
+  gap: var(--s12);
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .location-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s24);
+  }
+}
+
+.location-copy .eyebrow { color: var(--gold); margin-bottom: var(--s6); }
+.location-copy .eyebrow::before { background: var(--gold); }
+
+.location-copy h2 {
+  font-family: var(--serif);
+  font-size: clamp(40px, 6vw, 88px);
+  font-weight: 300;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+  margin-bottom: var(--s8);
+}
+
+.location-copy h2 em { font-style: italic; color: var(--gold); }
+
+.location-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s6);
+  margin-bottom: var(--s10, 40px);
+}
+
+.location-list li {
+  padding-bottom: var(--s6);
+  border-bottom: 1px solid rgba(247, 241, 232, 0.12);
+}
+.location-list li:last-child { border-bottom: none; }
+
+.location-label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: var(--s2);
+}
+
+.location-value {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--cream);
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+}
+
+.location-actions {
+  display: flex;
+  gap: var(--s3);
+  flex-wrap: wrap;
+}
+
+/* Map placeholder */
+.map-card {
+  aspect-ratio: 4/5;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  background:
+    radial-gradient(circle at 30% 40%, rgba(184, 137, 75, 0.25), transparent 50%),
+    radial-gradient(circle at 70% 60%, rgba(139, 94, 60, 0.2), transparent 50%),
+    linear-gradient(180deg, var(--coffee), var(--espresso));
+  border: 1px solid rgba(247, 241, 232, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.map-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.15;
+  background-image:
+    linear-gradient(rgba(247, 241, 232, 0.3) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(247, 241, 232, 0.3) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.map-pin {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.map-pin-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto var(--s4);
+  border-radius: 50%;
+  background: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 12px rgba(184, 137, 75, 0.2),
+              0 0 0 24px rgba(184, 137, 75, 0.1);
+  animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 12px rgba(184, 137, 75, 0.2), 0 0 0 24px rgba(184, 137, 75, 0.1); }
+  50% { box-shadow: 0 0 0 16px rgba(184, 137, 75, 0.25), 0 0 0 32px rgba(184, 137, 75, 0.08); }
+}
+
+.map-pin-icon svg { width: 24px; height: 24px; color: var(--espresso); }
+
+.map-pin-label {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 20px;
+  color: var(--cream);
+}
+
+.map-pin-sub {
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: var(--s2);
+}
+
+/* ============================================================
+   INSTAGRAM
+   ============================================================ */
+.instagram {
+  padding: var(--s32) 0;
+  background: var(--cream);
+}
+@media (min-width: 768px) {
+  .instagram { padding: var(--s48) 0; }
+}
+
+.instagram-header {
+  text-align: center;
+  margin-bottom: var(--s12);
+}
+
+.instagram-header .eyebrow {
+  justify-content: center;
+  margin-bottom: var(--s6);
+}
+.instagram-header .eyebrow::before { display: none; }
+
+.instagram-header h2 {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 68px);
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--ink);
+  margin-bottom: var(--s4);
+}
+
+.instagram-header h2 em { font-style: italic; color: var(--copper); }
+
+.instagram-handle {
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--copper);
+}
+
+.instagram-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--s3);
+  margin-bottom: var(--s12);
+}
+@media (min-width: 700px) {
+  .instagram-grid { grid-template-columns: repeat(6, 1fr); gap: var(--s4); }
+}
+
+.instagram-item {
+  aspect-ratio: 1;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+
+.instagram-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.instagram-item:hover img { transform: scale(1.1); }
+
+.instagram-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 18, 11, 0.5);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.instagram-item:hover::after { opacity: 1; }
+
+.instagram-cta {
+  text-align: center;
+}
+
+/* ============================================================
+   FINAL CTA
+   ============================================================ */
+.final-cta {
+  position: relative;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  color: var(--cream);
+  padding: var(--s24) var(--s6);
+}
+
+.final-cta-bg {
+  position: absolute;
+  inset: -5%;
+  background-image: url('https://images.unsplash.com/photo-1453614512568-c4024d13c247?w=2400&q=85');
+  background-size: cover;
+  background-position: center;
+  animation: heroZoom 30s ease-in-out infinite alternate;
+}
+
+.final-cta-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(26, 18, 11, 0.6),
+    rgba(26, 18, 11, 0.75)
+  );
+}
+
+.final-cta-content {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+}
+
+.final-cta-content .eyebrow {
+  color: var(--gold-soft);
+  margin-bottom: var(--s6);
+  justify-content: center;
+}
+.final-cta-content .eyebrow::before { display: none; }
+
+.final-cta h2 {
+  font-family: var(--serif);
+  font-size: clamp(52px, 9vw, 132px);
+  font-weight: 300;
+  letter-spacing: -0.035em;
+  line-height: 0.9;
+  margin-bottom: var(--s6);
+}
+
+.final-cta h2 em { font-style: italic; color: var(--gold-soft); }
+
+.final-cta p {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(18px, 2vw, 22px);
+  color: var(--cream-soft);
+  opacity: 0.85;
+  margin-bottom: var(--s10, 40px);
+  line-height: 1.5;
+}
+
+.final-cta-actions {
+  display: flex;
+  gap: var(--s3);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+  background: var(--espresso);
+  color: var(--cream);
+  padding: var(--s24) 0 var(--s8);
+}
+
+.footer-grid {
+  display: grid;
+  gap: var(--s12);
+  margin-bottom: var(--s16);
+  padding-bottom: var(--s12);
+  border-bottom: 1px solid rgba(247, 241, 232, 0.1);
+}
+@media (min-width: 800px) {
+  .footer-grid {
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    gap: var(--s16);
+  }
+}
+
+.footer-brand h3 {
+  font-family: var(--serif);
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--s4);
+}
+
+.footer-brand p {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 17px;
+  color: var(--cream-soft);
+  opacity: 0.7;
+  max-width: 320px;
+  line-height: 1.6;
+}
+
+.footer-col h4 {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: var(--s6);
+}
+
+.footer-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+}
+
+.footer-col a {
+  font-size: 15px;
+  color: var(--cream-soft);
+  opacity: 0.75;
+  transition: all 0.3s;
+  display: inline-block;
+  position: relative;
+}
+
+.footer-col a:hover {
+  opacity: 1;
+  color: var(--gold);
+  transform: translateX(4px);
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--s4);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--cream-soft);
+  opacity: 0.5;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   RESPONSIVE TWEAKS
+   ============================================================ */
+@media (max-width: 500px) {
+  .hero h1 { letter-spacing: -0.02em; }
+  .btn { padding: 16px 24px; font-size: 11px; }
+  .mobile-menu a { font-size: 32px; }
+  .signature-price .num { font-size: 44px; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     MOBILE MENU
+     ============================================================ -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home">Home</a>
+  <a href="#story">Our Story</a>
+  <a href="#menu">Menu</a>
+  <a href="#gallery">Gallery</a>
+  <a href="#visit">Visit</a>
+  <a href="#order" style="color: var(--gold); font-style: italic;">Order Now</a>
+</div>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<nav class="nav" id="nav">
+  <a href="#home" class="nav-logo">
+    <span class="nav-logo-mark"></span>
+    Maison Noir
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#story">Our Story</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#visit">Visit Us</a></li>
+  </ul>
+
+  <a href="#order" class="nav-cta">Order Now</a>
+
+  <button class="nav-toggle" id="navToggle" aria-label="Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<header class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content container">
+    <div class="hero-eyebrow">Est. 2018 · Bengaluru</div>
+
+    <h1>
+      Where every cup<br>
+      tells a <em>story</em>.
+    </h1>
+
+    <p class="hero-tagline">Freshly brewed coffee, handcrafted treats, beautiful moments.</p>
+
+    <p class="hero-desc">
+      A quiet corner in the heart of the city — slow mornings, warm light, and coffee made with intention.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#menu" class="btn btn-primary btn-arrow">Explore Menu</a>
+      <a href="#visit" class="btn btn-ghost">Visit Us</a>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</header>
+
+<!-- ============================================================
+     INTRO
+     ============================================================ -->
+<section class="intro" id="story">
+  <div class="container">
+    <div class="intro-grid">
+      <div class="intro-image-wrap reveal">
+        <img class="intro-image"
+             src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=1200&q=85"
+             alt="Freshly brewed coffee being poured" />
+      </div>
+
+      <div class="intro-copy reveal">
+        <span class="eyebrow">Our Little Corner</span>
+        <h2>Our little corner of <em>happiness</em>.</h2>
+        <p>
+          Maison Noir began with a simple idea — that a great cup of coffee is not just a drink, but a pause. A moment of stillness in a busy day.
+        </p>
+        <p>
+          We roast in small batches. We bake fresh every morning. We pour slowly, and we pour with care. Everything here is made by hand, made to order, and made to be savoured.
+        </p>
+        <a href="#story" class="btn btn-dark btn-arrow">Discover Our Story</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SIGNATURE MENU
+     ============================================================ -->
+<section class="menu-section" id="menu">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Made to make you <em>stay</em>.</h2>
+      <p>Small-batch creations, freshly prepared every day. A short menu, done exceptionally well.</p>
+    </div>
+
+    <div class="menu-grid">
+      <article class="menu-card reveal">
+        <div class="menu-card-image">
+          <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=900&q=85" alt="Signature Coffee" />
+        </div>
+        <div class="menu-card-body">
+          <h3>Signature Coffee</h3>
+          <p>Rich espresso, silky milk foam, and a slow, deliberate pour.</p>
+          <div class="menu-card-price">₹280</div>
+        </div>
+      </article>
+
+      <article class="menu-card reveal">
+        <div class="menu-card-image">
+          <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=900&q=85" alt="Fresh Desserts" />
+        </div>
+        <div class="menu-card-body">
+          <h3>Fresh Desserts</h3>
+          <p>Light, layered, and made in-house every afternoon.</p>
+          <div class="menu-card-price">₹320</div>
+        </div>
+      </article>
+
+      <article class="menu-card reveal">
+        <div class="menu-card-image">
+          <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=900&q=85" alt="Freshly Baked" />
+        </div>
+        <div class="menu-card-body">
+          <h3>Freshly Baked</h3>
+          <p>Croissants, tarts, and warm pastries from our morning oven.</p>
+          <div class="menu-card-price">₹240</div>
+        </div>
+      </article>
+
+      <article class="menu-card reveal">
+        <div class="menu-card-image">
+          <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=900&q=85" alt="Café Favourites" />
+        </div>
+        <div class="menu-card-body">
+          <h3>Café Favourites</h3>
+          <p>Simple, generous plates — perfect for slow lunches.</p>
+          <div class="menu-card-price">₹420</div>
+        </div>
+      </article>
+
+      <article class="menu-card reveal">
+        <div class="menu-card-image">
+          <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=900&q=85" alt="Cold Beverages" />
+        </div>
+        <div class="menu-card-body">
+          <h3>Cold Beverages</h3>
+          <p>18-hour cold brew, iced matcha, and seasonal refreshers.</p>
+          <div class="menu-card-price">₹260</div>
+        </div>
+      </article>
+
+      <article class="menu-card reveal">
+        <div class="menu-card-image">
+          <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&q=85" alt="Velvet Cappuccino" />
+        </div>
+        <div class="menu-card-body">
+          <h3>Velvet Cappuccino</h3>
+          <p>Rich espresso, silky milk foam, and a dusting of cocoa.</p>
+          <div class="menu-card-price">₹290</div>
+        </div>
+      </article>
+    </div>
+
+    <div class="menu-cta reveal">
+      <a href="#menu" class="btn btn-dark btn-arrow">View Full Menu</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SIGNATURE DRINK
+     ============================================================ -->
+<section class="signature">
+  <div class="container">
+    <div class="signature-grid">
+      <div class="signature-image-wrap reveal">
+        <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?w=1200&q=85" alt="The signature coffee" />
+      </div>
+
+      <div class="signature-copy reveal">
+        <span class="eyebrow">The One Everyone Talks About</span>
+        <h2>Our signature <em>Velvet Cappuccino</em>.</h2>
+        <p>
+          Pulled from a single-origin Ethiopian bean, roasted in-house forty-eight hours before it reaches your cup. Dense milk foam, a dusting of dark cocoa, and a slow, deliberate finish.
+        </p>
+
+        <div class="signature-price">
+          <span class="num">₹290</span>
+          <span class="label">Double Shot · House Blend</span>
+        </div>
+
+        <a href="#order" class="btn btn-primary btn-arrow">Try Our Signature</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     EXPERIENCE
+     ============================================================ -->
+<section class="experience">
+  <div class="container">
+    <div class="experience-header reveal">
+      <span class="eyebrow">The Café Experience</span>
+      <h2>More than coffee. A place to <em>slow down</em>.</h2>
+    </div>
+
+    <div class="experience-grid">
+      <article class="experience-card reveal">
+        <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=800&q=85" alt="Morning coffee" />
+        <div class="experience-card-overlay"></div>
+        <div class="experience-card-content">
+          <div class="experience-card-eyebrow">Morning Coffee</div>
+          <h3>Start slow.</h3>
+        </div>
+      </article>
+
+      <article class="experience-card reveal">
+        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&q=85" alt="Freshly baked" />
+        <div class="experience-card-overlay"></div>
+        <div class="experience-card-content">
+          <div class="experience-card-eyebrow">Freshly Baked</div>
+          <h3>Made with care.</h3>
+        </div>
+      </article>
+
+      <article class="experience-card reveal">
+        <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=800&q=85" alt="Good conversations" />
+        <div class="experience-card-overlay"></div>
+        <div class="experience-card-content">
+          <div class="experience-card-eyebrow">Good Conversations</div>
+          <h3>Stay a little longer.</h3>
+        </div>
+      </article>
+
+      <article class="experience-card reveal">
+        <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=800&q=85" alt="Sweet moments" />
+        <div class="experience-card-overlay"></div>
+        <div class="experience-card-content">
+          <div class="experience-card-eyebrow">Sweet Moments</div>
+          <h3>Leave happier.</h3>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     GALLERY
+     ============================================================ -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <div class="gallery-header reveal">
+      <span class="eyebrow">Gallery</span>
+      <h2>Take a little <em>look around</em>.</h2>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item big reveal">
+        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1200&q=85" alt="Café interior" />
+        <div class="gallery-caption">The room at golden hour</div>
+      </div>
+
+      <div class="gallery-item reveal">
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=85" alt="Café exterior" />
+        <div class="gallery-caption">A quiet street corner</div>
+      </div>
+
+      <div class="gallery-item reveal">
+        <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?w=800&q=85" alt="Latte art" />
+        <div class="gallery-caption">Poured by hand</div>
+      </div>
+
+      <div class="gallery-item tall reveal">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=85" alt="Coffee cup" />
+        <div class="gallery-caption">The first sip</div>
+      </div>
+
+      <div class="gallery-item reveal">
+        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&q=85" alt="Dessert" />
+        <div class="gallery-caption">Made in-house</div>
+      </div>
+
+      <div class="gallery-item reveal">
+        <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&q=85" alt="Pastries" />
+        <div class="gallery-caption">Fresh from the oven</div>
+      </div>
+
+      <div class="gallery-item wide reveal">
+        <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=1200&q=85" alt="People enjoying coffee" />
+        <div class="gallery-caption">Where conversations live</div>
+      </div>
+
+      <div class="gallery-item reveal">
+        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&q=85" alt="Baked goods" />
+        <div class="gallery-caption">Slow mornings</div>
+      </div>
+
+      <div class="gallery-item reveal">
+        <img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?w=800&q=85" alt="Evening café" />
+        <div class="gallery-caption">Last light</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     REVIEWS
+     ============================================================ -->
+<section class="reviews">
+  <div class="container">
+    <div class="reviews-header reveal">
+      <span class="eyebrow">Reviews</span>
+      <h2>Good coffee. Better <em>memories</em>.</h2>
+    </div>
+
+    <div class="reviews-grid">
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">
+          "Beautiful ambience, amazing coffee, and the perfect place to spend an afternoon. I keep coming back."
+        </p>
+        <div class="review-author">Ananya R.</div>
+      </div>
+
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">
+          "The cappuccino is genuinely one of the best I've had. And the space feels like a warm hug."
+        </p>
+        <div class="review-author">Karan M.</div>
+      </div>
+
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">
+          "Soft light, soft music, soft pastries. It's the kind of place you don't want to leave."
+        </p>
+        <div class="review-author">Priya S.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LOCATION
+     ============================================================ -->
+<section class="location" id="visit">
+  <div class="container">
+    <div class="location-grid">
+      <div class="location-copy reveal">
+        <span class="eyebrow">Come Find Us</span>
+        <h2>A quiet corner in the heart of <em>the city</em>.</h2>
+
+        <ul class="location-list">
+          <li>
+            <span class="location-label">Address</span>
+            <span class="location-value">42 Alder Lane, Old Town District<br>Bengaluru 560001</span>
+          </li>
+          <li>
+            <span class="location-label">Opening Hours</span>
+            <span class="location-value">Monday — Sunday<br>7:00 AM — 11:00 PM</span>
+          </li>
+          <li>
+            <span class="location-label">Phone</span>
+            <span class="location-value">+91 98765 43210</span>
+          </li>
+          <li>
+            <span class="location-label">WhatsApp</span>
+            <span class="location-value">+91 98765 43210</span>
+          </li>
+        </ul>
+
+        <div class="location-actions">
+          <a href="#" class="btn btn-primary btn-arrow">Get Directions</a>
+          <a href="#" class="btn btn-ghost">WhatsApp Us</a>
+        </div>
+      </div>
+
+      <div class="map-card reveal">
+        <div class="map-grid"></div>
+        <div class="map-pin">
+          <div class="map-pin-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <div class="map-pin-label">Maison Noir</div>
+          <div class="map-pin-sub">Alder Lane</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     INSTAGRAM
+     ============================================================ -->
+<section class="instagram">
+  <div class="container">
+    <div class="instagram-header reveal">
+      <span class="eyebrow">Social</span>
+      <h2>Follow the <em>coffee trail</em>.</h2>
+      <div class="instagram-handle">@maisonnoir.cafe</div>
+    </div>
+
+    <div class="instagram-grid">
+      <div class="instagram-item reveal">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=85" alt="" />
+      </div>
+      <div class="instagram-item reveal">
+        <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600&q=85" alt="" />
+      </div>
+      <div class="instagram-item reveal">
+        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=85" alt="" />
+      </div>
+      <div class="instagram-item reveal">
+        <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&q=85" alt="" />
+      </div>
+      <div class="instagram-item reveal">
+        <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?w=600&q=85" alt="" />
+      </div>
+      <div class="instagram-item reveal">
+        <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=600&q=85" alt="" />
+      </div>
+    </div>
+
+    <div class="instagram-cta reveal">
+      <a href="#" class="btn btn-dark btn-arrow">Follow Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FINAL CTA
+     ============================================================ -->
+<section class="final-cta" id="order">
+  <div class="final-cta-bg"></div>
+  <div class="final-cta-overlay"></div>
+
+  <div class="final-cta-content reveal-slow">
+    <span class="eyebrow">A Warm Welcome</span>
+    <h2>Your table is <em>waiting</em>.</h2>
+    <p>Come for the coffee.<br>Stay for the moments.</p>
+
+    <div class="final-cta-actions">
+      <a href="#menu" class="btn btn-primary btn-arrow">View Menu</a>
+      <a href="#visit" class="btn btn-ghost">Get Directions</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>Maison Noir</h3>
+        <p>Where every cup tells a story.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#story">Story</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#visit">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Social</h4>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">WhatsApp</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Visit</h4>
+        <ul>
+          <li><a href="#">42 Alder Lane</a></li>
+          <li><a href="#">Bengaluru 560001</a></li>
+          <li><a href="#">+91 98765 43210</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 Maison Noir · All Rights Reserved</div>
+      <div>Crafted with care in Bengaluru</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script>
+  // ---- Navigation state ----
+  const nav = document.getElementById('nav');
+  const navToggle = document.getElementById('navToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  // ---- Mobile menu ----
+  navToggle.addEventListener('click', () => {
+    navToggle.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navToggle.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // ---- Scroll reveal ----
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -60px 0px' }
+  );
+
+  document.querySelectorAll('.reveal, .reveal-slow').forEach((el) => {
+    revealObserver.observe(el);
+  });
+
+  // ---- Subtle parallax on hero ----
+  const heroBg = document.querySelector('.hero-bg');
+  if (heroBg) {
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (y < window.innerHeight) {
+        heroBg.style.transform = `translateY(${y * 0.3}px) scale(${1 + y * 0.0003})`;
+      }
+    }, { passive: true });
+  }
+
+  // ---- Magnetic buttons (subtle) ----
+  document.querySelectorAll('.btn').forEach((btn) => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      btn.style.transform = `translate(${x * 0.15}px, ${y * 0.2 - 2}px)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = '';
+    });
+  });
+</script>
+
+</body>
+</html>
